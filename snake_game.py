@@ -89,10 +89,12 @@ while running:
     headCoord = (headX, headY, SNAKE_SIZE, SNAKE_SIZE)
     
     #check game over
-    if headRect.left<0 or headRect.right > WINDOW_WIDTH or headRect.top < 0 or headRect.bottom>WINDOW_HEIGHT:
+    if headRect.left<0 or headRect.right > WINDOW_WIDTH or headRect.top < 0 or headRect.bottom>WINDOW_HEIGHT or headCoord in bodyCoords:
         window.blit(gameOverText, gameOverRect)
         window.blit(continueText, continueRect)
         pygame.display.update()
+        
+    
         
         #pause the game
         isPaused = True
