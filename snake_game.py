@@ -14,5 +14,5 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     
-    window.fill(255,255,255)
+    window.fill((255,255,255))
     pygame.display.update()
