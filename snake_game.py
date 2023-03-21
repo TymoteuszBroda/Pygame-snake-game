@@ -63,6 +63,26 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        
+        #Move snake
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                snakeDx = -SNAKE_SIZE
+                snakeDy = 0
+            if event.key == pygame.K_d:
+                snakeDx = SNAKE_SIZE
+                snakeDy = 0
+            if event.key == pygame.K_w:
+                snakeDx = 0
+                snakeDy = -SNAKE_SIZE
+            if event.key == pygame.K_s:
+                snakeDx = 0
+                snakeDy = SNAKE_SIZE
+                
+    #update position of snake head
+    headX += snakeDx
+    headY += snakeDy
+    headCoord = (headX, headY, SNAKE_SIZE, SNAKE_SIZE)
     
     window.fill(WHITE)
     #HUD
