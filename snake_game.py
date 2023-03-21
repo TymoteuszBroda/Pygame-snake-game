@@ -1,4 +1,4 @@
-import pygame
+import pygame, random
 
 pygame.init()
 
@@ -84,15 +84,27 @@ while running:
     headY += snakeDy
     headCoord = (headX, headY, SNAKE_SIZE, SNAKE_SIZE)
     
+    #collision check
+    if headRect.colliderect(appleRect):
+        score+=1
+        pickUpSound.play()
+        
+        appleX = random.randint(0, WINDOW_WIDTH-SNAKE_SIZE)
+        appleY = random.randint(0, WINDOW_HEIGHT-SNAKE_SIZE)
+        appleCoord = (appleX, appleY, SNAKE_SIZE, SNAKE_SIZE)
+    
+        
     window.fill(WHITE)
     #HUD
     window.blit(titleText, titleRect)
     window.blit(scoreText, scoreRect)
     
     #assets
-    pygame.draw.rect(window, GREEN, headCoord)
-    pygame.draw.rect(window, RED, appleCoord)
+    headRect = pygame.draw.rect(window, GREEN, headCoord)
+    appleRect = pygame.draw.rect(window, RED, appleCoord)
     
+    #HUD update
+    scoreText = font.render(f"Score: {score}", True, GREEN, DARKGREEN)
     pygame.display.update()
     clock.tick(FPS)
     
