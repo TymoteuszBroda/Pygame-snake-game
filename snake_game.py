@@ -78,11 +78,38 @@ while running:
             if event.key == pygame.K_s:
                 snakeDx = 0
                 snakeDy = SNAKE_SIZE
-                
+    
+    #add head coord to the list of body coords
+    bodyCoords.insert(0, headCoord)
+    bodyCoords.pop()
+    
     #update position of snake head
     headX += snakeDx
     headY += snakeDy
     headCoord = (headX, headY, SNAKE_SIZE, SNAKE_SIZE)
+    
+    #check game over
+    if headRect.left<0 or headRect.right > WINDOW_WIDTH or headRect.top < 0 or headRect.bottom>WINDOW_HEIGHT:
+        window.blit(gameOverText, gameOverRect)
+        window.blit(continueText, continueRect)
+        pygame.display.update()
+        
+        #pause the game
+        isPaused = True
+        while isPaused:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    isPaused = False
+                    running = False
+                if event.type == pygame.KEYDOWN:
+                    score = 0
+                    headX = WINDOW_WIDTH//2
+                    headY = WINDOW_HEIGHT//2+100
+                    headCoord = (headX, headY, SNAKE_SIZE, SNAKE_SIZE)
+                    bodyCoords = []
+                    snakeDx = 0
+                    snakeDy = 0
+                    isPaused = False
     
     #collision check
     if headRect.colliderect(appleRect):
@@ -92,6 +119,8 @@ while running:
         appleX = random.randint(0, WINDOW_WIDTH-SNAKE_SIZE)
         appleY = random.randint(0, WINDOW_HEIGHT-SNAKE_SIZE)
         appleCoord = (appleX, appleY, SNAKE_SIZE, SNAKE_SIZE)
+        
+        bodyCoords.append(headCoord)
     
         
     window.fill(WHITE)
@@ -100,6 +129,8 @@ while running:
     window.blit(scoreText, scoreRect)
     
     #assets
+    for body in bodyCoords:
+        pygame.draw.rect(window, DARKGREEN, body)
     headRect = pygame.draw.rect(window, GREEN, headCoord)
     appleRect = pygame.draw.rect(window, RED, appleCoord)
     
