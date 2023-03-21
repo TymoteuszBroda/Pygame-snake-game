@@ -28,9 +28,23 @@ RED = (255,0,0)
 DARKRED = (150,0,0)
 WHITE = (255,255,255)
 #fonts
-
+font = pygame.font.SysFont("gabriela", 48)
 #text
+titleText = font.render("Snake", True, GREEN, DARKRED)
+titleRect = titleText.get_rect()
+titleRect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
 
+scoreText = font.render(f"Score: {score}", True, GREEN, DARKRED)
+scoreRect = scoreText.get_rect()
+scoreRect.topleft = (10,10)
+
+gameOverText = font.render("Game Over!", True, RED, DARKGREEN)
+gameOverRect = gameOverText.get_rect()
+gameOverRect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
+
+continueText = font.render("Press any key to play again", True, RED, DARKGREEN)
+continueRect = continueText.get_rect()
+continueRect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 + 64)
 #sounds
 
 #images
