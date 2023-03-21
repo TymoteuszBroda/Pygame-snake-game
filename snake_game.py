@@ -46,8 +46,17 @@ continueText = font.render("Press any key to play again", True, RED, DARKGREEN)
 continueRect = continueText.get_rect()
 continueRect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 + 64)
 #sounds
+pickUpSound = pygame.mixer.Sound("pick_up_sound.wav")
 
 #images
+appleCoord = (500, 500, SNAKE_SIZE, SNAKE_SIZE)
+headCoord = (headX, headY, SNAKE_SIZE, SNAKE_SIZE)
+bodyCoords = []
+
+
+appleRect = pygame.draw.rect(window, RED, appleCoord)
+headRect = pygame.draw.rect(window, GREEN, headCoord)
+
 #=============================GAME LOOP===============================
 running = True
 while running:
@@ -56,6 +65,15 @@ while running:
             running = False
     
     window.fill(WHITE)
+    #HUD
+    window.blit(titleText, titleRect)
+    window.blit(scoreText, scoreRect)
+    
+    #assets
+    pygame.draw.rect(window, GREEN, headCoord)
+    pygame.draw.rect(window, RED, appleCoord)
+    
     pygame.display.update()
     clock.tick(FPS)
+    
 pygame.quit()
